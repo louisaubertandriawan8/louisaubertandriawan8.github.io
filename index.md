@@ -2,19 +2,17 @@
 
 ---
 
-### Project 1
+### Project
 
-[Analisis Ragam 2 Arah dengan Interaksi untuk Mengetahui Pengaruh Temperatur dan Kebisingan Terhadap Kerja Sistem Cardiovaskuler Operator Produksi
+- [Analisis Ragam 2 Arah dengan Interaksi untuk Mengetahui Pengaruh Temperatur dan Kebisingan Terhadap Kerja Sistem Cardiovaskuler Operator Produksi
 (Studi Kasus PT General Electric Lighting Indonesia)](/project/My_Project.html)
 
 ---
 
-### Publication
+### Publications
 
-- [Project 1 Title](http://example.com/)
-- [Project 2 Title](http://example.com/)
-- [Project 3 Title](http://example.com/)
-- [Project 4 Title](http://example.com/)
-- [Project 5 Title](http://example.com/)
+- [1. Integral Numerik Metode Trapezoid](/formula/Integral-Trapezoid)
+- [2. Integral Numerik Metode Simpson/ Parabola](/formula/Integral-Simpson)
+- [Eigen Dominan Metode Power](/formula/Eigen-Dominan-Metode-Power)
 
 ---
