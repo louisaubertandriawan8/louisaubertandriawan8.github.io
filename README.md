@@ -53,4 +53,4 @@ ___
 <br>[3] Dummy thumbnail image created by rawpixel.com: https://www.freepik.com/free-vector/set-elements-infographic_2807573.htm (Standard Freepik License)
 
 https://img.shields.io/badge/LinkedIn-View-%230A66C2
-[![](https://img.shields.io/badge/LinkedIn-View-%230A66C2?logo=LinkedIn)](link-to-our-project)
+[![](https://img.shields.io/badge/LinkedIn-View-%230A66C2?logo=LinkedIn)](https://www.linkedin.com/in/louis-aubert-andriawan-145162269/)
