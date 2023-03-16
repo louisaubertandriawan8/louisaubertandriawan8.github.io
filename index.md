@@ -5,7 +5,7 @@
 ### Project 
 
 [Analisis Ragam 2 Arah dengan Interaksi untuk Mengetahui Pengaruh Temperatur dan Kebisingan Terhadap Kerja Sistem Cardiovaskuler Operator Produksi
-(Studi Kasus PT General Electric Lighting Indonesia)](/My_Project.html)
+(Studi Kasus PT General Electric Lighting Indonesia)](/project/My_Project.html)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
