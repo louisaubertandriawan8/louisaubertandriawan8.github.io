@@ -11,8 +11,8 @@
 
 ### Publications
 
-- [Integral Numerik Metode Trapezoid](/formula/Integral-Trapezoid)
-- [Integral Numerik Metode Simpson/ Parabola](/formula/Integral-Simpson)
-- [Eigen Dominan Metode Power](/formula/Eigen-Dominan-Metode-Power)
+- [Integral Numerik Metode Trapezoid](/formula/Integral-Trapezoid.html)
+- [Integral Numerik Metode Simpson/ Parabola](/formula/Integral-Simpson.html)
+- [Eigen Dominan Metode Power](/formula/Eigen-Dominan-Metode-Power.html)
 
 ---
