@@ -3,10 +3,10 @@ logo: "Foto Louis.jpg?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
   Hello, my name is Louis Aubert Andriawan. 
   <br>
+  
   I'm currently studying at Brawijaya University as Statistics student.
-  <br><br>
-  <a href="https://www.linkedin.com/in/louis-aubert-andriawan-145162269/"> My LinkedIn </a> 
-  <br>
+  <br><br> 
+  
   <p><a href="https://www.linkedin.com/in/louis-aubert-andriawan-145162269/"><img src="https://img.shields.io/badge/LinkedIn-View-%230A66C2?logo=LinkedIn" alt=""></a></p>
   
 theme: jekyll-theme-minimal
