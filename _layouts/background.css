@@ -1,0 +1,13 @@
+/* universal mode */
+* {
+    box-sizing: border-box;
+  }
+/* Changes to image path language made following instructions from GitHub user antonblr on GitHub Community discussion */
+  body {
+      background-image: url("../images/dummy_thumbnail.jpg");
+      background-size: cover;
+      background-position: 0% 25%;
+      background-color: #A8322D;
+      background-attachment: fixed;
+      cursor: crosshair;
+}
