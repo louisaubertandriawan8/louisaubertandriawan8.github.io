@@ -1,0 +1,831 @@
+---
+title: "Analisis Ragam 2 Arah dengan Interaksi untuk Mengetahui Pengaruh Temperatur dan Kebisingan Terhadap Kerja Sistem *Cardiovaskuler* Operator Produksi"
+subtitle: "(Studi Kasus PT General Electric Lighting Indonesia)"
+author: "Louis Aubert Andriawan"
+date: "Mei 2022"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+    toc: true
+    number_sections: true
+---
+```{r include=FALSE}
+library(knitr)
+opts_chunk$set(message = FALSE)
+opts_chunk$set(warning = FALSE)
+opts_chunk$set(comment = "")
+opts_chunk$set(collapse = TRUE)
+opts_chunk$set(error = TRUE)
+opts_chunk$set(prompt = TRUE)
+opts_chunk$set(fig.align = 'center')
+```
+# PENDAHULUAN
+
+## Latar Belakang  
+  Perkembangan industri di Indonesia tidak hanya membawa dampak positif bagi pertumbuhan perekonomian bangsa Indonesia. Di sisi lain, ada juga dampak negatif yang dihasilkan. Dampak negatif tersebut akan meningkatkan potensi bahaya dan penyakit akibat kerja. Potensi bahaya tersebut bisa muncul dari lingkungan kerja, bahan produksi, proses produksi, dan lain-lain. Sumber-sumber bayaha tersebut jika tidak dikendalikan secara optimal dapat mengakibatkan kecelakaan dan penyakit akibat kerja.  
+  
+  Salah satu potensi bahaya dan penyakit akibat kerja yang dialami tenaga kerja adalah penyakit *cardiovaskuler*. Berdasarkan data International Labor Organization tahun 1999, penyakit *cardiovaskuler* berada di peringkat empat sebagai penyakit akibat kerja yang paling sering terjadi. Data tersebut diramalkan akan semakin meningkat seiring dengan perkembangan teknologi permesinan. Penyakit *cardiovaskuler* adalah penyakit yang diakibatkan karena tidak berfungsinya sistem peredaran darah, seperti jantung, darah, dan pembuluh darah dengan baik.  
+  
+  Menurut Ganong (1983) di dalam buku *Review of Medical Physiology*,
+terdapat faktor-faktor yang menyebabkan frekuensi denyut jantung meningkat atau menurun. Frekuensi denyut jantung menjadi meningkat karena disebabkan oleh keadaan emosi (gelisah, gembira), temperatur lingkungan yang tinggi, kondisi setelah makan, aktivitas kerja, kehamilan, konsumsi rokok dan obat-obatan yang meningkatkan kerja sistem saraf simpatis. Sedangkan penyakit jantung, kondisi tidur dan istirahat dapat mengurangi frekuensi denyut jantung. Hal yang serupa juga diungkapkan Nurmianto (1995), temperatur sekeliling yang tinggi dan tingginya pembebanan otot akan menyebabkan frekuensi denyut
+jantung meningkat. Kondisi lingkungan yang bising terus menerus juga akan meningkatkan frekuensi denyut jantung (Arifiani, 2006).  
+  
+  Dalam melindungi tenaga kerja, khususnya operator bagian produksi, PT GE Lighting Indonesia mempunyai satu divisi khusus yang bertanggung jawab dalam mengelola keselamatan dan kesehatan tenaga kerja, yaitu departemen *Environmental Health and Safety* (EHS). Dalam menjalankan tugasnya, departemen EHS membuat peraturan keselamatan dan kesehatan kerja yang harus dilaksanakan oleh semua orang yang berada di lingkungan PT GE Lighting Indonesia.  
+  
+  Kebijakan tersebut antara lain adalah penggunaan alat pelindung diri seperti *ear plug* (pelindung telinga), kacamata pelindung, sarung tangan, masker, dan sepatu pelindung. Namun dalam pelaksanaannya, masih terdapat ketidakdisiplinan tenaga kerja dalam menggunakan alat pelindung kesehatan.  
+  
+  Keadaan lingkungan fisik di PT GE Lighting Indonesia dapat dikategorikan sebagai kondisi yang tidak ergonomis. Tingkat kebisingan lantai produksi lebih dari 85 dB atau berada di atas nilai ambang batas kebisingan. Sumber kebisingan berasal dari mesin-mesin produksi yang berjumlah 8-9 buah mesin di setiap *line* produksi. Mesin-mesin yang digunakan dalam proses produksi pembuatan lampu mengakibatkan tempat produksi menjadi panas, dengan temperatur mencapai $30^{\circ}$C. Pada kondisi lingkungan yang ergonomis, temperatur lingkungan kerja sebesar $24^{\circ}$C - $26^{\circ}$C. Bekerja di lingkungan yang panas dengan ventilasi yang kurang baik serta pada tingkat kebisingan yang tinggi dapat menjadi akar masalah kesehatan operator produksi.  
+  
+  Pada penelitian ini, terdapat 2 faktor yang akan dianalisis, yaitu faktor temperatur dan kebisingan. Kedua faktor tersebut akan dianalisis menggunakan Anova 2 arah dengan interaksi untuk mengetahui apakah terdapat pengaruh terhadap kerja sistem *cardiovaskuler* dan seberapa besar pengaruhnya dengan menggunakn sampel operator produksi di PT GE Lighting Indonesia.
+  
+    
+## Anova (*Analysis of Variance*) 
+  Anova adalah sebuah analisis untuk melihat perbedaan rata-rata lebih dari dua populasi. Menurut Ronald E. Walpole (1993), analisis ragam (Anova) adalah suatu metode untuk menguraikan keragaman total data menjadi komponen-komponen yang mengukur berbagai sumber keragaman. Anova juga merupakan salah satu alat statistik yang berkaitan dengan pengujian hipotesis mengenai perbedaan rata-rata untuk tiga populasi atau lebih.  
+  
+  Dalam uji Anova, ada beberapa asumsi yang harus terpenuhi, antara lain:  
+  
+* Unit observasi diperoleh secara acak dan independen sehingga galat atau error bersifat bebas/independen.  
+* Populasi yang diuji berdistribusi normal (dapat diuji dengan uji normalitas Shapiro Wilk atau Kolmogorov Smirnov).  
+* Populasi yang diuji memiliki varians atau ragam yang sama (dapat diuji dengan uji homogenitas ragam yaitu uji Bartlett atau uji Levene).
+
+Uji Anova dapat dibedakan berdasarkan banyaknya faktor dalam melakukan pengamatan. Jika faktor pengamatan hanya satu, maka disebut uji Anova satu arah (*one way Anova*), sedangkan jika terdapat dua faktor, maka disebut uji Anova dua arah (*two way Anova*). Anova dua arah sendiri dibagi lagi menjadi 2, yaitu tanpa interkasi dan dengan interaksi.  
+
+  Anova 2 arah tanpa interaksi adalah mengasumsikan bahwa faktor pertama dengan faktor kedua bersifat aditif (tidak ada interaksi antar faktor). Sedangkan Anova 2 arah dengan interaksi, selain memperhatikan pengaruh faktor pertama dan faktor kedua, juga diperhatikan apakah ada pengaruh interaksi dari kedua faktor tersebut.  
+  
+## Statistika Deskriptif dalam Anova  
+### Anova 1 Arah  
+  Tujuan dari Anova adalah menguraikan jumlah kuadrat total. **Jumlah Kuadrat Total (JKT)** digunakan untuk melihat keragaman total dalam komponen. Pada dasarnya, JKT diuraikan menjadi 2 komponen, yaitu jumlah kuadrat antar perlakuan/treatment (*sum square between*) yang digunakan untuk melihat keragaman antar perlakuan dan jumlah kuadrat dalam perlakuan/treatment (*sum square within*) yang digunakan untuk melihat keragaman dalam perlakuan. jumlah kuadrat antar perlakuan/treatment disebut **Jumlah Kuadrat Perlakuan (JKP)**, sedangkan jumlah kuadrat dalam perlakuan/treatment disebut **Jumlah Kuadrat Galat (JKG)**. Penguraian komponen tersebut digunakan untuk Anova 1 arah. Secara matematis, model linear untuk Anova 1 arah adalah  
+$$
+x_{ij}=\mu+\alpha_i+\epsilon_{ij}
+$$
+dimana  
+
+> $\alpha_i$ sebagai pengaruh perlakuan ke-i  
+> $\epsilon_{ij}$ sebagai pengaruh yang tak dapat dijelaskan dalam pengamatan dengan perlakuan ke-i dan ulangan ke-j (disebut galat atau residual)  
+
+Hipotesisnya:  
+$H_0$=$\alpha_1$=$\alpha_2$=...=$\alpha_t$=0   
+$H_1$=sekurang-kurangnya satu $\alpha_i$ tidak sama dengan 0  
+
+Uji akan didasarkan pada perbandingan dua nilai dugaan yang bebas bagi ragam populasi $\sigma^2$. Nilai dugaan itulah yang diperoleh dengan menguraikan keragaman total menjadi dua komponenen.  
+
+  Dapat ditulis sebagai berikut:  
+$$
+JKT=JKP+JKG
+$$
+dengan:  
+$JKT=\sum_{i=1}^{t}\sum_{j=1}^{n}(x_{ij}-\overline{x}_{..})^2$  
+$JKP=n\sum_{i=1}^{t}(\overline{x}_{i.}-\overline{x}_{..})^2$  
+$JKG=\sum_{i=1}^{t}\sum_{j=1}^{n}(x_{ij}-\overline{x}_{i.})^2$  
+
+> Keterangan:  
+$x_{ij}=$ nilai pengamatan dari perlakuan ke-i ulangan ke-j  
+$\overline{x}..=$ rata-rata seluruh pengamatan  
+$\overline{x}_{i.}=$ rata-rata pengamatan dari perlakuan ke-i  
+t= banyaknya perlakuan/treatment  
+n= banyaknya ulangan  
+
+Rumus di atas adalah rumus definisi. Untuk **rumus kerjanya** adalah sebagai berikut:  
+$JKT=\sum_{i=1}^{t}\sum_{j=1}^{n}x_{ij}^2-{FK}$  
+$JKP=\frac{\sum_{i=1}^{t}{x_{i.}^2}}{n}-{FK}$  
+$JKG=JKT-JKP$  
+dengan  
+$FK (Faktor Koreksi)=\frac{x_{..}^2}{nt}$  
+
+> Keterangan:  
+$x_{i.}=$ total nilai pengamatan untuk perlakuan ke-i  
+$x_{..}=$ total nilai seluruh pengamatan  
+
+Sumber Keragaman | Derajat Bebas | Jumlah Kuadrat | Kuadrat Tengah     | 
+-----------------|---------------|----------------|--------------------|  
+Perlakuan        |$t-1$          |JKP             |$\frac{JKP}{t-1}$   |
+Galat            |$n(t-1)$       |JKG             |$\frac{JKG}{n(t-1)}$| 
+Total            |$nt-1$         |JKT             |                    |  
+
+Table: Tabel Anova 1 arah  
+
+Rumus di atas digunakan apabila jumlah ulangan setiap perlakuan sama. Jika setiap perlakuan memiliki ulangan yang tak sama, maka rumusnya menjadi sebagai berikut:  
+$JKT=\sum_{i=1}^{t}\sum_{j=1}^{n_i}x_{ij}^2-{FK}$  
+$JKP=\sum_{i=1}^{t}\frac{{x_{i.}^2}}{n_i}-{FK}$  
+$JKG=JKT-JKP$  
+dengan  
+$FK (Faktor Koreksi)=\frac{x_{..}^2}{\sum_{i=1}^{t}n_i}$  
+
+>Keterangan:
+$n_i=$ banyaknya ulangan untuk perlakuan ke-i    
+
+Sumber Keragaman | Derajat Bebas                | Jumlah Kuadrat | Kuadrat Tengah     | 
+-----------------|------------------------------|----------------|--------------------|  
+Perlakuan        |$t-1$                         |JKP             |$\frac{JKP}{t-1}$   |
+Galat            |$\sum_{i=1}^{t}n_i-k$         |JKG             |$\frac{JKG}{n(t-1)}$| 
+Total            |$\sum_{i=1}^{t}n_i-1$         |JKT             |                    |  
+
+Table: Tabel Anova 1 arah (**ulangan tak sama dalam setiap perlakuan**)
+
+Statistik uji yang digunakan untuk membandingkan keragaman adalah statistik uji F  
+$$
+F=\frac{Kuadrat Tengah Perlakuan}{Kuadrat Tengah Galat}
+$$
+Jika nilai statistik uji F lebih dari nilai $F_{tabel}$, maka keputusannya adalah tolak $H_0$ yang berarti terdapat perbedaan nilai rata-rata antar perlakuan.   
+
+### Anova 2 Arah Tanpa Interaksi
+  
+  Untuk Anova 2 arah tanpa interaksi, terdapat 1 komponen lagi yang diuraikan dari JKT. Alasannya adalah karena terdapat 1 faktor tambahan. Jika faktor pertama terletak di baris dan faktor kedua terletak di kolom, maka anggap **Jumlah Kuadrat Baris (JKB)** sebagai sumber keragaman faktor pertama dan **Jumlah Kuadrat Kolom (JKK)** sebagai sumber keragaman faktor kedua. Secara matematis, model linear untuk Anova 2 arah tanpa interaksi adalah  
+$$
+x_{ij}=\mu+\alpha_i+\beta_j+\epsilon_{ij}
+$$
+dimana  
+
+> $\alpha_i$ sebagai pengaruh faktor pertama ke-i  
+> $\beta_j$ sebagai pengaruh faktor kedua ke-j  
+> $\epsilon_{ij}$ sebagai pengaruh yang tak dapat dijelaskan dalam pengamatan dengan faktor pertama ke-i dan faktor kedua ke-j (disebut galat atau residual)  
+
+Anova 2 arah tanpa interaksi memiliki 2 hipotesis:  
+
+* Hipotesis untuk faktor pertama:  
+$H_0:$ $\alpha_1=$ $\alpha_2=...=$ $\alpha_r=0$   
+$H_1:$ sekurang-kurangnya satu $\alpha_i$ tidak sama dengan 0  
+* Hipotesis untuk faktor kedua:  
+$H_0:$ $\beta_1=$ $\beta_2=...=$ $\beta_c=0$   
+$H_1:$ sekurang-kurangnya satu $\beta_j$ tidak sama dengan 0  
+
+Penguraian jumlah kuadrat total menjadi 3 komponen, yaitu:  
+$$
+JKT=JKB+JKK+JKG
+$$
+dengan:  
+$JKT=\sum_{i=1}^{r}\sum_{j=1}^{c}(x_{ij}-\overline{x}_{..})^2$  
+$JKB=c\sum_{i=1}^{r}(\overline{x}_i.-\overline{x}_{..})^2$  
+$JKK=r\sum_{j=1}^{c}(\overline{x}_{.j}-\overline{x}_{..})^2$  
+$JKG=\sum_{i=1}^{r}\sum_{j=1}^{c}(x_{ij}-\overline{x}_{i.}-\overline{x}_{.j}+\overline{x}_{..})^2$  
+
+> Keterangan:  
+$x_{ij}=$ nilai pengamatan dari faktor pertama ke-i dan faktor kedua ke-j  
+$\overline{x}..=$ rata-rata seluruh pengamatan  
+$\overline{x}_{i.}=$ rata-rata pengamatan dari faktor pertama ke-i  
+$\overline{x}_{.j}=$ rata-rata pengamatan dari faktor kedua ke-j  
+r= banyaknya faktor pertama    
+c= banyaknya faktor kedua   
+
+Rumus di atas adalah rumus definisi. Untuk **rumus kerjanya** adalah sebagai berikut:  
+$JKT=\sum_{i=1}^{r}\sum_{j=1}^{c}x_{ij}^2-{FK}$  
+$JKB=\frac{\sum_{i=1}^{r}{x_{i.}^2}}{c}-{FK}$  
+$JKK=\frac{\sum_{j=1}^{c}{x_{.j}^2}}{r}-{FK}$  
+$JKG=JKT-JKB-JKK$  
+dengan  
+$FK (Faktor Koreksi)=\frac{x_{..}^2}{rc}$  
+
+> Keterangan:  
+$x_{i.}=$ total nilai pengamatan untuk faktor pertama ke-i  
+$x_{.j}=$ total nilai pengamatan untuk faktor kedua ke-j  
+$x_{..}=$ total nilai seluruh pengamatan  
+
+Sumber Keragaman | Derajat Bebas | Jumlah Kuadrat | Kuadrat Tengah         |  
+-----------------|---------------|----------------|------------------------|  
+Faktor pertama   |$r-1$          |JKB             |$\frac{JKB}{r-1}$       |   
+Faktor kedua     |$c-1$          |JKK             |$\frac{JKK}{c-1}$       |   
+Galat            |$(r-1)(c-1)$   |JKG             |$\frac{JKG}{(r-1)(c-1)}$|  
+Total            |$rc-1$         |JKT             |                        |  
+
+Table: Tabel Anova 2 arah tanpa interaksi  
+
+Statistik uji yang digunakan untuk membandingkan keragaman ada 2 (karena terdapat 2 hipotesis):  
+$$
+F_1=\frac{Kuadrat Tengah Faktor Pertama}{Kuadrat Tengah Galat}
+$$  
+Jika nilai statistik uji $F_1$ lebih dari nilai $F_{tabel}$, maka keputusannya adalah tolak $H_0$ yang berarti terdapat perbedaan nilai rata-rata antar faktor pertama.   
+$$
+F_2=\frac{Kuadrat Tengah Faktor Kedua}{Kuadrat Tengah Galat}
+$$
+Jika nilai statistik uji $F_2$ lebih dari nilai $F_{tabel}$, maka keputusannya adalah tolak $H_0$ yang berarti terdapat perbedaan nilai rata-rata antar faktor kedua.   
+
+### Anova 2 Arah dengan Interaksi  
+
+  Jika Anova 2 arah tanpa interaksi hanya ingin mengetahui apakah terdapat pengaruh dari faktor pertama dan faktor kedua tanpa memperhatikan adanya interaksi atau hubungan antara kedua faktor, Anova 2 arah dengan interaksi mempertimbangkan bahwa kedua faktor terdapat interaksi. Umumnya, Anova 2 arah dengan interaksi dilakukan ulangan sebanyak n kali ($n\ge2$) untuk suatu percobaan dengan faktor pertama ke-i dan faktor kedua ke-j. Anova 2 arah dengan interaksi menambahkan 1 komponen baru untuk menguraikan JKT, yaitu **Jumlah Kuadrat Interaksi**. Jumlah Kuadrat Interaksi dapat ditulis JK(BK). Secara matematis, model linear untuk Anova 2 arah dengan interaksi adalah  
+$$
+x_{ijk}=\mu+\alpha_i+\beta_j+(\alpha\beta)_{ij}+\epsilon_{ijk}
+$$
+dimana  
+
+> $\alpha_i$ sebagai pengaruh faktor pertama ke-i  
+> $\beta_j$ sebagai pengaruh faktor kedua ke-j  
+> $(\alpha\beta)_{ij}$ sebagai pengaruh interaksi antara faktor pertama ke-i dan faktor kedua ke-j   
+> $\epsilon_{ijk}$ sebagai pengaruh yang tak dapat dijelaskan dalam pengamatan dengan faktor pertama ke-i dan faktor kedua ke-j untuk ulangan ke-k (disebut galat atau residual)  
+
+Anova 2 arah dengan interaksi memiliki 3 hipotesis:  
+
+* Hipotesis untuk faktor pertama:  
+$H_0:$ $\alpha_1=$ $\alpha_2=...=$ $\alpha_r=0$   
+$H_1:$ sekurang-kurangnya satu $\alpha_i$ tidak sama dengan 0  
+* Hipotesis untuk faktor kedua:  
+$H_0:$ $\beta_1=$ $\beta_2=...=$ $\beta_c=0$   
+$H_1:$ sekurang-kurangnya satu $\beta_j$ tidak sama dengan 0  
+* Hipotesis untuk interaksi:  
+$H_0:$ $(\alpha\beta)_{11}=$ $(\alpha\beta)_{12}=...=$ $(\alpha\beta)_{rc}=0$   
+$H_1:$ sekurang-kurangnya satu $(\alpha\beta)_{ij}$ tidak sama dengan 0  
+
+Penguraian jumlah kuadrat total menjadi 4 komponen, yaitu:  
+$$
+JKT=JKB+JKK+JK(BK)+JKG
+$$
+dengan:  
+$JKT=\sum_{i=1}^{r}\sum_{j=1}^{c}\sum_{k=1}^{n}(x_{ijk}-\overline{x}_{...})^2$  
+$JKB=cn\sum_{i=1}^{r}(\overline{x}_{i..}-\overline{x}_{...})^2$  
+$JKK=rn\sum_{j=1}^{c}(\overline{x}_{.j.}-\overline{x}_{...})^2$  
+$JK(BK)=n\sum_{i=1}^{r}\sum_{j=1}^{c}(\overline{x}_{ij.}-\overline{x}_{i..}-\overline{x}_{.j.}+\overline{x}_{...})^2$  
+$JKG=\sum_{i=1}^{r}\sum_{j=1}^{c}\sum_{k=1}^{n}(x_{ijk}-\overline{x}_{ij.})^2$  
+
+> Keterangan:  
+$x_{ijk}=$ nilai pengamatan faktor pertama ke-i, faktor kedua ke-j, ulangan ke-k  
+$\overline{x}_{...}=$ rata-rata seluruh pengamatan  
+$\overline{x}_{i..}=$ rata-rata pengamatan untuk faktor pertama ke-i  
+$\overline{x}_{.j.}=$ rata-rata pengamatan untuk faktor kedua ke-j  
+$\overline{x}_{ij.}=$ rata-rata pengamatan untuk faktor pertama ke-i dan faktor kedua ke-j  
+r= banyaknya faktor pertama    
+c= banyaknya faktor kedua   
+n= banyaknya ulangan  
+
+Rumus di atas adalah rumus definisi. Untuk **rumus kerjanya** adalah sebagai berikut:  
+$JKT=\sum_{i=1}^{r}\sum_{j=1}^{c}\sum_{k=1}^{n}x_{ijk}^2-{FK}$  
+$JKB=\frac{\sum_{i=1}^{r}{x_{i..}^2}}{cn}-{FK}$  
+$JKK=\frac{\sum_{j=1}^{c}{x_{.j.}^2}}{rn}-{FK}$  
+$JK(BK)=\frac{\sum_{i=1}^{r}\sum_{j=1}^{c}{x_{ij.}^2}}{n}-{FK}-JKB-JKK$  
+$JKG=JKT-JKB-JKK-JK(BK)$  
+dengan  
+$FK (Faktor Koreksi)=\frac{x_{...}^2}{rcn}$  
+
+> Keterangan:  
+$x_{i..}=$ total nilai pengamatan untuk faktor pertama ke-i  
+$x_{.j.}=$ total nilai pengamatan untuk faktor kedua ke-j  
+$x_{ij.}=$ total nilai pengamatan untuk faktor pertama ke-i dan faktor kedua ke-j  
+$x_{...}=$ total nilai seluruh pengamatan  
+
+Sumber Keragaman | Derajat Bebas | Jumlah Kuadrat | Kuadrat Tengah            |  
+-----------------|---------------|----------------|---------------------------|  
+Faktor pertama   |$r-1$          |JKB             |$\frac{JKB}{r-1}$          |   
+Faktor kedua     |$c-1$          |JKK             |$\frac{JKK}{c-1}$          |   
+Interakasi       |$(r-1)(c-1)$   |JK(BK)          |$\frac{JK(BK)}{(r-1)(c-1)}$|   
+Galat            |$rc(n-1)$      |JKG             |$\frac{JKG}{rc(n-1)}$      |  
+Total            |$rcn-1$       |JKT             |                           |  
+
+Table: Tabel Anova 2 arah dengan interaksi  
+
+Statistik uji yang digunakan untuk membandingkan keragaman ada 3 (karena terdapat 3 hipotesis):  
+$$
+F_1=\frac{Kuadrat Tengah Faktor Pertama}{Kuadrat Tengah Galat}
+$$  
+Jika nilai statistik uji $F_1$ lebih dari nilai $F_{tabel}$, maka keputusannya adalah tolak $H_0$ yang berarti terdapat perbedaan nilai rata-rata antar faktor pertama.   
+$$
+F_2=\frac{Kuadrat Tengah Faktor Kedua}{Kuadrat Tengah Galat}
+$$
+Jika nilai statistik uji $F_2$ lebih dari nilai $F_{tabel}$, maka keputusannya adalah tolak $H_0$ yang berarti terdapat perbedaan nilai rata-rata antar faktor kedua.   
+$$
+F_3=\frac{Kuadrat Tengah Interaksi}{Kuadrat Tengah Galat}
+$$
+Jika nilai statistik uji $F_3$ lebih dari nilai $F_{tabel}$, maka keputusannya adalah tolak $H_0$ yang berarti terdapat interaksi antar dua faktor yang menyebabkan perbedaan nilai rata-rata antar kedua faktor.   
+
+## Uji Perbandingan Berganda (*Multiple Comparison*)  
+  Uji perbandingan berganda dapat dilakukan dengan berbagai uji, seperti uji Nyata Terkecil Fisher (*Least Significance Difference*), uji Nyata Jujur Tukey (*Honestly Significance Difference*), uji Duncan, uji Bonferroni, dan lain sebagainya. Uji ini dilakukan untuk melihat perbandingan tiap kelompok dari analisis sebelumnya. Uji perbandingan berganda dilakukan saat ada pengaruh yang nyata antar faktor. Dengan uji perbandingan berganda, akan dicari pasangan faktor mana yang saling berbeda secara statistik. Contoh uji perbandingan yang akan dibahas adalah uji Nyata Terkecil Fisher dan uji Tukey HSD.  
+  
+### Uji Nyata Terkecil Fisher (Uji BNT)  
+Hipotesisnya  
+$H_0:$ $\mu_i-\mu_{i'}=0$  
+$H_1:$ $\mu_i-\mu_{i'}\ne0$  
+Untuk seluruh pasangan faktor $i$ dan $i'$  
+Statistik ujinya:  
+$$
+BNT=t_{\alpha/2,dbGalat}\sqrt{KTG(\frac{1}{n_i}+\frac{1}{n_{i'}})}
+$$
+Jika $|\overline{X}_{i}-\overline{X}_{i'}|>BNT$, maka tolak $H_0$ yang berarti pasangan faktor $i$ dengan $i'$ dinyatakan berbeda.  
+
+### Uji Tukey HSD (Uji BNJ)  
+Hipotesisnya  
+$H_0:$ $\mu_i-\mu_{i'}=0$  
+$H_1:$ $\mu_i-\mu_{i'}\ne0$  
+Untuk seluruh pasangan faktor $i$ dan $i'$  
+Statistik ujinya:  
+$$
+BNJ=\frac{q_{\alpha/2,t,dbGalat}}{\sqrt{2}}\sqrt{KTG(\frac{1}{n_i}+\frac{1}{n_{i'}})}
+$$
+
+> $q_{\alpha/2,t,dbGalat}$ adalah titik kritis tabel studentized range, di mana t adalah banyaknya faktor atau perlakuan  
+
+Jika $|\overline{X}_{i}-\overline{X}_{i'}|>BNJ$, maka tolak $H_0$ yang berarti pasangan faktor $i$ dengan $i'$ dinyatakan berbeda.  
+
+## Effect Size (Eta Squared)  
+
+  Eta squared berfungsi untuk mengukur seberapa besar pengaruh dari sebuah faktor yang dapat menjelaskan respons.  
+  
+  Rumus Eta Squared:  
+$$
+\eta^2=\frac{JK_{faktor}}{JKT}
+$$
+  Jika terdapat lebih dari 1 faktor, rumus di atas dapat menyebabkan variabilitas dari suatu faktor akan tersarang dalam JKT. Sehingga tidak bisa mengetahui variabilitas dari satu faktor itu saja. Oleh sebab itu, digunakan Partial Eta Squared.  
+  
+  Rumus Partial Eta Squared:  
+$$
+\eta^2_{partial}=\frac{JK_{faktor}}{JK_{faktor}+JKG}
+$$  
+
+## Uji Beda Rata-Rata 2 Sampel Independen  
+
+  Uji beda rata-rata dua sampel independen dilakukan ketika terdapat dua populasi ingin diteliti apakah rata-rata antar kedua populasi tersebut sama atau tidak. Hipotesis awal dari uji ini adalah rata-rata antar kedua sampel adalah sama, sedangkan hipotesis alternatifnya bisa satu diantara tiga kemungkinan (rata-rata kedua populasi tidak sama, rata-rata populasi pertama lebih besar daripada populasi kedua, atau rata-rata populasi pertama lebih kecil daripada populasi kedua)  
+  
+  Hipotesisnya dapat ditulis sebagai berikut:  
+$H_0:\mu_1=\mu_2$  
+$H_1:\begin{cases} \mu_1\ne\mu_2 \\ \mu_1>\mu_2  \\ \mu_1<\mu_2     \end{cases}$  
+
+  Untuk ragam dianggap sama, maka statistik ujinya adalah sebagai berikut  
+$$
+t_{hit}=\frac{(\overline{x}_{1}-\overline{x}_{2})-(\mu_1-\mu_2)}{s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}
+$$  
+dengan
+$s_p^2=\frac{s_1^2(n_1-1)+s_2^2(n_2-1)}{n_1+n_2-2}$
+
+## Data
+
+Pengumpulan data dilakukan di departemen *Incandescent and Circular Flourescent* PT General Electric Lighting Indonesia. Pengambilan sampel memakai metode *purposive sampling*, dimana operator sengaja dipilih oleh peneliti karena memenuhi syarat sebagai sampel yang sesuai dengan tujuan penelitian, yaitu:  
+
+* Jenis kelamin wanita  
+* Usia 30-40 tahun  
+* Dalam kondisi sehat  
+* Tidak dalam keadaan hamil  
+* Tidak sedang mengonsumsi obat-obatan yang dapat meningkatkan kerja jantung  
+* Tidak merokok  
+* Frekuensi olahraga <2 kali per minggu
+* Masa kerja operator lebih dari 5 tahun  
+
+Pengukuran denyut jantung dilakukan pada saat operator selesai bekerja dan diukur dalam posisi duduk menggunakan tensimeter digital.  
+
+Faktor pertama yang digunakan adalah Suhu dengan 2 level, yaitu $25^{\circ}$C - $26^{\circ}$C dan $29^{\circ}$C - $30^{\circ}$C. Pengukuran suhu menggunakan termometer ruangan. Faktor kedua yang digunakan adalah Kebisingan dengan 2 level, yaitu 83-84 dB dan 87-88 dB. Pengukuran tingkat kebisingan menggunakan sound level meter. Simbol dan simbol level dari kedua faktor ditampilkan dalam tabel berikut
+
+```{r, echo=FALSE}
+library(kableExtra)
+collapse_rows_1 <- data.frame(Faktor=c(rep("Suhu", 2), rep("Kebisingan", 2)),
+                 Simbol = c(rep("A", 2), rep("B", 2)),
+                 Level = c("25°C - 26°C", "29°C - 30°C", "83-84 dB", "87-88 dB"), 
+                 Simbol_level = c("A1", "A2", "B1", "B2"))
+kbl(collapse_rows_1, align = "c") %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1:2)
+```  
+
+Sedangkan variabel respon yang diukur adalah frekuensi denyut jantung kerja operator dalam satuan per menit. Setiap perlakuan dilakukan pengulangan sebanyak sepuluh kali, yang berarti menggunakan 10 operator berbeda. Pengukuran frekuensi denyut jantung dilakukan setelah operator bekerja selama 4 jam.  
+
+Berikut merupakan hasil pengukuran yang disajikan dalam tabel berikut  
+
+```{r, echo=FALSE}
+library (knitr)
+library(kableExtra)
+collapse_rows_2 <- data.frame(B_A=c(rep("B1", 10), rep("B2", 10)),
+                              "A1"=c(76,80,82,78,69,76,79,81,74,81, 83,79,80,84,82,84,78,79,81,79), 
+                              "A2"=c(81,79,82,81,77,81,80,81,75,84, 84,88,86,83,84,86,79,92,90,86))
+kbl(collapse_rows_2, align = "c") %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1)
+```  
+
+# SOURCE CODE
+
+## Library yang Dibutuhkan
+```{r, comment=""}
+# library(readr) -> membaca file csv hasil import
+# library(rmarkdown) -> menampilkan data dalam bentuk page
+# library(tseries) -> uji Normalitas dengan jarque.bera.test  
+# libary(car) -> uji Homogenitas Ragam dengan leveneTest  
+# library(lsr) -> menghitung eta squared  
+```
+
+## Import Data
+```{r}
+library(readr)
+library(rmarkdown)
+Cardio <- read_csv("C:/Users/Louis Aubert/Documents/Cardio.csv")
+data<-Cardio
+data$Bising<-as.factor(data$Bising)
+data$Temp<-as.factor(data$Temp)
+paged_table(as.data.frame(data))
+```
+## Boxplot
+```{r}
+boxplot(data$`Denyut Jantung`~data$Bising, xlab="Tingkat Kebisingan (dB)", ylab = "Denyut Jantung (per menit)", main="Boxplot Tingkat Kebisingan terhadap Denyut Jantung", col=c("green", "orange"))
+
+boxplot(data$`Denyut Jantung`~data$Temp, xlab="Temperatur(°C)", ylab = "Denyut Jantung (per menit)", main="Boxplot Temperatur terhadap Denyut Jantung", col=c("blue", "red"))
+
+boxplot(data$`Denyut Jantung`~data$Temp + data$Bising, xlab="Temperatur (°C) dan Tingkat Kebisingan (dB)", ylab = "Denyut Jantung (per menit)", main="Boxplot Temperatur dan Tingkat Kebisingan terhadap  
+        Denyut Jantung",col=c("cyan", "yellow", "gray", "darkred"))
+```
+  Dari boxplot tingkat kebisingan terhadap denyut jantung, secara visual terdapat perbedaan rata-rata denyut jantung antara tingkat kebisingan B1(83-84 dB) dengan B2(87-88 dB) di mana tingkat kebisingan B2 berdampak pada denyut jantung yang lebih tinggi.  
+  
+  Dari boxplot temperatur terhadap denyut jantung, secara visual terdapat perbedaan rata-rata denyut jantung antara tingkat kebisingan B1(83-84 dB) dengan B2(87-88 dB) di mana temperatur A2 berdampak pada denyut jantung yang lebih tinggi.  
+  
+  Dari boxplot temperatur dan tingkat kebisingan terhadap denyut jantung, secara visual terdapat perbedaan rata-rata denyut jantung untuk interaksi A2.B2 dengan interaksi lainnya. Namun, perbedaan tersebut belum tentu terdapat interaksi di antara temperatur dan tingkat kebisingan.  
+  
+## Asumsi-Asumsi  
+### Asumsi Normalitas  
+
+Asumsi normalitas dapat diidentifikasi secara visual menggunakan Q-Q Plot dan uji normalitas statistik seperti Jarque Bera, Anderson Darling, dan Shapiro Wilk  
+
+#### Asumsi Normalitas dengan Q-Q Plot  
+```{r}
+anova<-aov(`Denyut Jantung`~Bising*Temp, data=data)
+plot(anova, 2)
+```  
+
+> * `aov()` berfungsi untuk melakukan uji Anova. Dalam kasus ini, yang diuji adalah Denyut Jantung sebagai fungsi dari interaksi antara Tingkat Kebisingan dan Temperatur. Simbol * di antara dua faktor menandakan uji dilakukan menggunakan interaksi.    
+> * Plot yang ditampilkan adalah Q-Q Plot model Anova 2 arah dengan interkasi. Simbol * menandakan uji yang dilakukuan adalah dengan interaksi. Angka 2 merupakan opsi untuk menampilkan Q-Q Plot.  
+
+Karena titik-titik tersebar di sekitar garis, maka dapat diasumsikan data menyebar secara normal.  
+
+#### Asumsi Normalitas Galat  
+
+```{r}
+library(tseries)
+res<-residuals(anova)
+shapiro<-shapiro.test(res)
+jarque.bera<-jarque.bera.test(res)
+```  
+
+> * `residuals(anova)` berfungsi sebagai nilai sisaan dalam model anova  
+> * Uji normalitas dengan `shapiro.test(res)` dan `jarque.bera.test(res)` menggunakan nilai sisaan  
+
+```{r, echo=FALSE}
+shapiro
+jarque.bera
+```
+
+> Karena *p-value* seluruh uji > 0.05, maka dapat disimpulkan bahwa sisaan berdistribusi Normal.  
+
+### Asumsi Homogenitas  
+  Asumsi homogenitas berarti mengasumsikan ragam bernilai sama untuk setiap amatan pada faktor sama. Dapat diidentifikasi secara visual menggunakan Plot *Scale-Location* dan uji homogenitas statistik seperti uji Levene, uji Breusch Pagan, dan uji Bartlett.  
+  
+#### Asumsi Homogenitas dengan Plot *Scale-Location*  
+```{r}
+plot(anova, 3)
+```  
+> Plot yang ditampilkan dari plot dengan tipe 3 adalah plot Scale Location.  
+
+Dari plot, di garis bagian awal membentuk garis yang tidak terlalu horizontal, sedangkan sisanya membentuk garis horizontal. Asumsi homogenitas terpenuhi jika garis yang terbentuk adalah garis horizontal. Untuk memastikannya, perlu diuji lebih lanjut.  
+
+#### Asumsi Homogenitas dengan statistik uji  
+```{r}
+library(car)
+levene<-leveneTest(data$`Denyut Jantung`~data$Bising*data$Temp)
+bartlett1<-bartlett.test(data$`Denyut Jantung`~data$Bising)
+bartlett2<-bartlett.test(data$`Denyut Jantung`~data$Temp)
+```  
+
+> * Uji Levene menguji homogenitas ragam dengan interaksi  
+> * Uji Bartlett menguji homogenitas ragam untuk setiap faktor  
+
+```{r, echo=FALSE}
+library(knitr)
+df<-data.frame(Uji=c("Levene", rep("Bartlett", 2)), Perlakuan=c("Interaksi", "Tingkat Kebisingan", "Temperatur"), Nilai_Statistik=c(levene[1,2], bartlett1$statistic, bartlett2$statistic), p_value=c(levene[1,3], bartlett1$p.value, bartlett2$p.value))
+kable(df, caption = "Uji Homogenitas")
+```  
+> Karena *p-value* seluruh uji > 0.05, maka dapat disimpulkan bahwa data memiliki ragam yang homogen, baik dari setiap faktor maupun dari interaksi.  
+
+Asumsi Normalitas dan asumsi Homogenitas terpenuhi, sehingga analisis ragam dapat dilakukan.  
+
+## Analisis Data  
+
+### TABEL ANOVA  
+Hipotesis  
+
+* Hipotesis untuk faktor tingkat kebisingan:  
+$H_0:$ $\alpha_1=$ $\alpha_2=0$   
+$H_1:$ sekurang-kurangnya satu $\alpha_i$ tidak sama dengan 0  
+* Hipotesis untuk faktor temperatur:  
+$H_0:$ $\beta_1=$ $\beta_2=0$   
+$H_1:$ sekurang-kurangnya satu $\beta_j$ tidak sama dengan 0  
+* Hipotesis untuk interaksi:  
+$H_0:$ $(\alpha\beta)_{11}=$ $(\alpha\beta)_{12}=$ $(\alpha\beta)_{21}=$ $(\alpha\beta)_{22}=0$   
+$H_1:$ sekurang-kurangnya satu $(\alpha\beta)_{ij}$ tidak sama dengan 0  
+
+Dari sebelumnya, model aov() telah disimpan dalam objek anova.  
+```{r}
+summary(anova)
+```  
+
+> `summary(anova)` menampilkan hasil perhitungan seperti Df(derajat bebas), Sum Sq(Jumlah Kuadrat), Mean Sq(Kuadrat Tengah), F value($F_{hit}$), dan Pr(>F)(p-value)  
+
+Nilai p dari Faktor Tingkat Kebisingan bernilai <0.05, sehingga tolak $H_0$ yang berarti terdapat perbedaan rata-rata yang nyata antar level dalam Faktor Tingkat Kebisingan.  
+
+Nilai p dari Faktor Temperatur bernilai <0.05, sehingga tolak $H_0$ yang berarti terdapat perbedaan rata-rata yang nyata antar level dalam Faktor Temperatur. 
+
+Nilai p dari Faktor Interaksi bernilai >0.05, sehingga terima $H_0$ yang berarti tidak terdapat interaksi antara Faktor Tingkat Kebisingan dengan Faktor Temperatur.  
+
+### Uji Lanjut Perbandingan Berganda  
+
+Karena kedua faktor masing-masing hanya memiliki 2 level, maka sebenarnya tidak diperlukan uji lanjut perbandingan berganda. Namun, tak jadi masalah jika ingin dilakukan untuk membuktikan bahwa kedua faktor memiliki perbedaan yang nyata.  
+
+#### Uji BNJ (Tukey's HSD)  
+
+```{r}
+TukeyHSD(anova)
+```  
+> Menggunakan `TukeyHSD()` dengan argumen model anova untuk menampilkan hasil perbandingan uji berganda  
+
+Hasil output menunjukkan bahwa Denyut Jantung dengan Tingkat Kebisingan B2 (87-88 dB) berbeda dengan B1 (83-84 dB), karena nilai p<0.05. Begitu pula Denyut Jantung dengan Temperatur A2($25^{\circ}$C - $26^{\circ}$C) berbeda dengan A1($29^{\circ}$C - $30^{\circ}$C), karena nilai p<0.05.  
+
+Sedangkan untuk interaksi, Denyut Jantung dengan Interaksi B2:A2 (Tingkat Kebisingan 87-88 dB dan Temperatur $29^{\circ}$C - $30^{\circ}$C) berbeda dengan Interaksi B1:A1 (Tingkat Kebisingan 83-84 dB dan Temperatur $25^{\circ}$C - $26^{\circ}$C), Interaksi B2:A1 (Tingkat Kebisingan 87-88 dB dan Temperatur $25^{\circ}$C - $26^{\circ}$C), dan Interaksi B1:A2 (Tingkat Kebisingan 83-84 dB dan Temperatur $29^{\circ}$C - $30^{\circ}$C). Sedangkan interaksi lainnya tidak berbeda.  
+
+Hasil uji di atas sebanding dengan boxplot yang ditampilkan sebelumnya.  
+
+### Effect Size
+```{r}
+library(lsr)
+etaSquared(anova)
+```  
+> Untuk menghitung eta squared, digunakan function `etaSquared()` dengan argument model anova  
+
+Partial eta squared dari faktor bising bernilai 0.355 yang berarti 35.5% respon denyut jantung dapat dijelaskan oleh tingkat kebisingan.  
+
+Partial eta squared dari faktor temperatur bernilai 0.271 yang berarti 27.1% respon denyut jantung dapat dijelaskan oleh temperatur.  
+
+Partial eta squared dari interaksi faktor tingkat kebisingan dan temperatur bernilai 0.038 yang berarti hanya 3.8% respon denyut jantung dapat dijelaskan oleh interaksi faktor.  
+
+## Uji Beda Rata-Rata 2 Faktor  
+
+### Rata-Rata Denyut Jantung dengan 2 Level Tingkat Kebisingan  
+B1=83-84 dB  
+B2=87-88 dB  
+
+Hipotesis:  
+$H_0: \mu_{B1}=\mu_{B2}$  
+$H_1: \mu_{B1}<\mu_{B2}$  
+```{r, echo=FALSE}
+library(dplyr)
+library(knitr)
+data_B1<-filter(data, Bising=="B1")[,c(1,3)]
+data_B2<-filter(data, Bising=="B2")[,c(1,3)]
+df_B<-data.frame(B1=data_B1$`Denyut Jantung`, B2=data_B2$`Denyut Jantung`)
+kable(df_B, caption = "Denyut Jantung")
+```  
+```{r}
+t.test(x=df_B$B1, y=df_B$B2, alternative = "less", paired = F, var.equal = T)
+```  
+
+> `t.test()` untuk menghitung statistik uji t dengan argument 2 sampel, yaitu x dan y, hipotesis alternatif kurang dari, data tidak berpasangan, dan ragam dianggap sama  
+
+Karena *p-value*<0.05, maka tolak $H_0$, yang berarti terdapat cukup bukti untuk menyatakan bahwa denyut jantung operator yang bekerja di tempat dengan tingkat kebisingan 87-88 dB lebih tinggi dibandingkan dengan yang bekerja di tempat dengan tingkat kebisingan 83-84 dB  
+
+### Rata-Rata Denyut Jantung dengan 2 Level Temperatur  
+A1=$25^{\circ}$C - $26^{\circ}$C  
+A2=$29^{\circ}$C - $30^{\circ}$C
+
+Hipotesis:  
+$H_0: \mu_{A1}=\mu_{A2}$  
+$H_1: \mu_{A1}<\mu_{A2}$  
+```{r, echo=FALSE}
+library(dplyr)
+library(knitr)
+data_A1<-filter(data, Temp=="A1")[,c(1,3)]
+data_A2<-filter(data, Temp=="A2")[,c(1,3)]
+df_A<-data.frame(A1=data_A1$`Denyut Jantung`, A2=data_A2$`Denyut Jantung`)
+kable(df_A, caption = "Denyut Jantung")
+```  
+```{r}
+t.test(x=df_A$A1, y=df_A$A2, alternative = "less", paired = F, var.equal = T)
+```  
+
+Karena *p-value*<0.05, maka tolak $H_0$, yang berarti terdapat cukup bukti untuk menyatakan bahwa denyut jantung operator yang bekerja di tempat dengan temperatur $25^{\circ}$C - $26^{\circ}$C lebih tinggi dibandingkan dengan yang bekerja di tempat dengan temperatur $29^{\circ}$C - $30^{\circ}$C  
+
+# PERHITUNGAN MANUAL
+Perhitungan manual berikut adalah perhitungan untuk ANOVA (menghitung Jumlah Kuadrat, Derajat Bebas, Kuadrat Tengah, dan $F_{hit}$)  
+
+## Derajat Bebas  
+```{r}
+N<- nrow(data)
+r<- length(unique(data$Bising))
+c<- length(unique(data$Temp))
+n<- N/(r*c)
+DB_Bising<-r-1
+DB_Temp<-c-1
+DB_Int<-DB_Bising*DB_Temp
+DBG<-r*c*(n-1)
+DBT<-(r*c*n)-1
+```  
+
+> Keterangan  
+> N=rcn=banyaknya pengamatan  
+> r=banyaknya level pada Faktor Tingkat Kebisingan  
+> c=banyaknya level pada Faktor Temperature  
+> n=banyaknya ulangan per level Faktor Tingkat Kebisingan dan Faktor Temperatur  
+
+```{r}
+N; r; c; n
+```
+
+
+```{r}
+DB_Bising; DB_Temp; DB_Int; DBG; DBT
+```  
+
+## Jumlah Kuadrat  
+$JKT=\sum_{i=1}^{2}\sum_{j=1}^{2}\sum_{k=1}^{10}x_{ijk}^2-{FK}$  
+$JK_{Bising}=\frac{\sum_{i=1}^{2}{x_{i..}^2}}{cn}-{FK}$  
+$JK_{Temp}=\frac{\sum_{j=1}^{2}{x_{.j.}^2}}{rn}-{FK}$  
+$JK_{Int}=\frac{\sum_{i=1}^{2}\sum_{j=1}^{2}{x_{ij.}^2}}{n}-{FK}-JK_{Bising}-JK_{Temp}$  
+$JKG=JKT-JK_{Bising}-JK_{Temp}-JK_{Int}$  
+dengan  
+$FK (Faktor Koreksi)=\frac{x_{...}^2}{rcn}$  
+```{r}
+FK<-(sum(data$`Denyut Jantung`))^2/(r*c*n)
+JKT<-sum(data$`Denyut Jantung`^2) - FK
+
+bising.sum<-aggregate(`Denyut Jantung` ~ Bising , data, sum )[,2]
+bising.square<-sum(bising.sum^2)
+JK_Bising<-bising.square/(c*n) - FK
+
+temp.sum<-aggregate(`Denyut Jantung` ~ Temp , data, sum )[,2]
+temp.square<-sum(temp.sum^2)
+JK_Temp<-temp.square/(r*n) - FK
+
+inter.sum<-aggregate(`Denyut Jantung` ~ Temp + Bising, data, sum)[,3]
+inter.square<-sum(inter.sum^2)
+JK_Int<-inter.square/n - FK - JK_Bising - JK_Temp
+
+JKG<-JKT - JK_Bising - JK_Temp - JK_Int
+```  
+
+```{r}
+JK_Bising; JK_Temp; JK_Int; JKG; JKT
+```  
+
+## Kuadrat Tengah  
+```{r}
+KT_Bising<-JK_Bising/DB_Bising
+KT_Temp<-JK_Temp/DB_Temp
+KT_Int<-JK_Int/DB_Int
+KTG<-JKG/DBG
+```  
+
+```{r}
+KT_Bising; KT_Temp; KT_Int; KTG
+```  
+
+## Statistik F dan *p-value*
+```{r}
+F_Bising<-KT_Bising/KTG
+F_Temp<-KT_Temp/KTG
+F_Int<-KT_Int/KTG
+
+pval_Bising<-pf(F_Bising, DB_Bising, DBG, lower.tail = F)
+pval_Temp<-pf(F_Temp, DB_Temp, DBG, lower.tail = F)
+pval_Int<-pf(F_Int, DB_Int, DBG, lower.tail = F)
+```  
+
+```{r}
+F_Bising; F_Temp; F_Int
+pval_Bising; pval_Temp; pval_Int
+```
+
+## TABEL ANOVA (MANUAL)  
+
+```{r, echo=FALSE}
+library(knitr)
+tabel_anova<-data.frame(SK=c("Bising", "Temp", "Bising:Temp", "Galat", "Total"), DB=c(DB_Bising, DB_Temp, DB_Int, DBG, DBT), 
+JK=c(JK_Bising, JK_Temp, JK_Int, JKG, JKT),
+KT=c(KT_Bising, round(KT_Temp,3), round(KT_Int,3), round(KTG,3), "NA"),
+Fhit=c(round(F_Bising,3), round(F_Temp,3), round(F_Int,3), "NA", "NA"),
+p_value=c(round(pval_Bising,3), round(pval_Temp,3), round(pval_Int,3), "NA", "NA"))
+kable(tabel_anova, caption="Tabel ANOVA")
+```  
+
+**Hasil perhitungan manual sama dengan hasil menggunakan function**  
+
+## Effect Size (MANUAL)  
+$$
+\eta^2_{partial}=\frac{JK_{Faktor}}{JK_{Faktor}+JKG}
+$$  
+
+```{r}
+eta.sqr.part_Bising<-JK_Bising/(JK_Bising+JKG)
+eta.sqr.part_Temp<-JK_Temp/(JK_Temp+JKG)
+eta.sqr.part_Int<-JK_Int/(JK_Int+JKG)
+```  
+
+```{r, echo=FALSE}
+library(knitr)
+eta_sq<-data.frame(Faktor=c("Tingkat Kebisingan", "Temperatur", "Interaksi"), Partial_Eta_Squared=c(eta.sqr.part_Bising, eta.sqr.part_Temp, eta.sqr.part_Int))
+kable(eta_sq)
+```  
+
+**Hasil perhitungan manual sama dengan hasil menggunakan function**  
+
+## Uji Beda Rata-Rata 2 Faktor  
+
+### Rata-Rata Denyut Jantung dengan 2 Level Tingkat Kebisingan  
+B1=83-84 dB  
+B2=87-88 dB  
+
+Hipotesis:  
+$H_0: \mu_{B1}=\mu_{B2}$  
+$H_1: \mu_{B1}<\mu_{B2}$  
+
+```{r}
+mean.B1<-mean(data_B1$`Denyut Jantung`)
+mean.B2<-mean(data_B2$`Denyut Jantung`)
+var.B1<-var(data_B1$`Denyut Jantung`)
+var.B2<-var(data_B2$`Denyut Jantung`)
+n.B1<-length(data_B1$`Denyut Jantung`)
+n.B2<-length(data_B2$`Denyut Jantung`)
+s2_p.B<-(var.B1*(n.B1-1)+var.B2*(n.B2-1))/(n.B1+n.B2-2)
+thit.B<-(mean.B1-mean.B2)/(sqrt(s2_p.B*(1/n.B1+1/n.B2)))
+p_value.B<-pt(thit.B, df=(n.B1+n.B2-2))
+```
+
+```{r}
+mean.B1; mean.B2
+thit.B
+p_value.B
+```  
+
+### Rata-Rata Denyut Jantung dengan 2 Level Temperatur  
+A1=$25^{\circ}$C - $26^{\circ}$C  
+A2=$29^{\circ}$C - $30^{\circ}$C
+
+Hipotesis:  
+$H_0: \mu_{A1}=\mu_{A2}$  
+$H_1: \mu_{A1}<\mu_{A2}$  
+
+```{r}
+mean.A1<-mean(data_A1$`Denyut Jantung`)
+mean.A2<-mean(data_A2$`Denyut Jantung`)
+var.A1<-var(data_A1$`Denyut Jantung`)
+var.A2<-var(data_A2$`Denyut Jantung`)
+n.A1<-length(data_A1$`Denyut Jantung`)
+n.A2<-length(data_A2$`Denyut Jantung`)
+s2_p.A<-(var.A1*(n.A1-1)+var.A2*(n.A2-1))/(n.A1+n.A2-2)
+thit.A<-(mean.A1-mean.A2)/(sqrt(s2_p.A*(1/n.A1+1/n.A2)))
+p_value.A<-pt(thit.A, df=(n.A1+n.A2-2))
+```  
+
+```{r}
+mean.A1; mean.A2
+thit.A
+p_value.A
+```  
+**Hasil perhitungan manual sama dengan hasil menggunakan function**  
+
+# HASIL DAN PEMBAHASAN  
+
+## Tabel ANOVA
+
+Setelah dianalisis menggunakan Anova 2 arah dengan interaksi, hasil uji menunjukkan bahwa Tingkat Kebisingan dan Temperatur berpengaruh secara signifikan terhadap Denyut Jantung. Namun, Tingkat Kebisingan dan Temperatur tidak memiliki interaksi dalam memengaruhi Denyut Jantung operator. Hal tersebut ditunjukkan dengan nilai *p-value* dari Faktor Tingkat Kebisingan dan Faktor Temperatur yang sangat kecil. Sedangkan *p-value* dari interaksi bernilai sangat besar.  
+
+## Kontribusi Faktor Terhadap Denyut Jantung
+
+Faktor Tingkat Kebisingan berkontribusi sebesar 35.5% dan Faktor Temperatur berkontribusi sebesar 27.1% dalam menjelaskan Denyut Jantung operator. Faktor interaksi hanya berkontribusi sebesar 3.8% dalam menjelaskan Denyut Jantung operator. Sedangkan kontribusi sisanya dijelaskan oleh faktor-faktor yang tidak diteliti dalam penelitian ini.  
+
+## Boxplot dan Rata-Rata Denyut Jantung
+
+Dari boxplot, terlihat bahwa rata-rata denyut jantung operator yang bekerja di tingkat kebisingan 87-88 dB lebih tinggi dibandingkan dengan operator yang bekerja di tingkat kebisingan 83-84 dB. Begitu pula untuk yang temperatur, di mana rata-rata denyut jantung operator yang bekerja di ruang dengan temperatur $29^{\circ}$C - $30^{\circ}$C lebih tinggi dibandingkan dengan operator yang bekerja di ruang dengan temperatur $25^{\circ}$C - $26^{\circ}$C. Secara deskriptif, rata-rata denyut jantung dapat dilihat di tabel berikut:  
+
+Level       |Rata-rata denyut jantung|
+------------|------------------------|
+83-84 dB    |       78.85            |
+87-88 dB    |       83.35            |
+
+Table: Tingkat Kebisingan  
+
+Level       |Rata-rata denyut jantung|
+------------|------------------------|
+$25^{\circ}$C - $26^{\circ}$C   |       79.25            |
+$29^{\circ}$C - $30^{\circ}$C           | 82.95          |
+
+Table: Temperatur  
+
+Untuk menguji bahwa:  
+
+* rata-rata denyut jantung operator yang bekerja di tingkat kebisingan 87-88 dB lebih tinggi dibandingkan dengan operator yang bekerja di tingkat kebisingan 83-84 dB
+* rata-rata denyut jantung operator yang bekerja di ruang dengan temperatur $29^{\circ}$C - $30^{\circ}$C lebih tinggi dibandingkan dengan operator yang bekerja di ruang dengan temperatur $25^{\circ}$C - $26^{\circ}$C. 
+
+maka dilakukan uji beda rata-rata 2 populasi. Didapatkan hasil keduanya dengan nilai *p-value* sangat kecil, sehingga dapat disimpulkan bahwa rata-rata denyut jantung operator yang bekerja di ruang dengan tingkat kebisingan 87-88 dB lebih tinggi dibandingkan dengan operator yang bekerja di tingkat kebisingan 83-84 dB, serta rata-rata denyut jantung operator yang bekerja di ruang dengan temperatur $29^{\circ}$C - $30^{\circ}$C lebih tinggi dibandingkan dengan operator yang bekerja di ruang dengan temperatur $25^{\circ}$C - $26^{\circ}$C. 
+
+> *Jadi, semakin tinggi tingkat kebisingan dan temperatur di suatu ruangan, maka denyut jantung akan semakin meningkat.*  
+
+# DAFTAR PUSTAKA  
+
+Pramana dkk. *DASAR-DASAR STATISTIKA Dengan Software R*. 2019. Jakarta: Penerbit IN MEDIA  
+
+Walpole, Ronald E. *PENGANTAR STATISTIKA*. 1993. Jakarta: Penerbit PT Gramedia Pustaka Utama  
+
+Walpole, Ronald E & Raymond H. Myers. *Ilmu Peluang dan Statistika untuk Insinyur dan Ilmuwan*. 1995. Bandung: Penerbit ITB Bandung  
+
+Yitnosumarto, Suntoyo. *PERCOBAAN: Perancangan, Analisis, dan Interpretasinya*. 1993. Jakarta: Penerbit PT Gramedia Pustaka Utama  
+
+[www.sthda.com/english/wiki/two-way-anova-test-in-r](http://www.sthda.com/english/wiki/two-way-anova-test-in-r), Mei 2022  
+
+[www.statology.org/eta-squared/](https://www.statology.org/eta-squared/), Mei 2022  
+
+[digilab.uns.ac.id](https://digilib.uns.ac.id/dokumen/download/7463/MTk4MzU=/Analisis-pengaruh-temperatur-dan-kebisingan-terhadap-kerja-sistem-cardiovascular-operator-produksi-Studi-Kasus-PT-General-Electric-Lighting-Indonesia-abstrak.pdf)  
+
+
+
+
+
