@@ -2,14 +2,15 @@
 
 ---
 
-### Category Name 1 
+### Project 
 
-[Project 1 Title](/My_Project.html)
+[nalisis Ragam 2 Arah dengan Interaksi untuk Mengetahui Pengaruh Temperatur dan Kebisingan Terhadap Kerja Sistem Cardiovaskuler Operator Produksi
+(Studi Kasus PT General Electric Lighting Indonesia)](/My_Project.html)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
 
-### Category Name 2
+### Publication
 
 - [Project 1 Title](http://example.com/)
 - [Project 2 Title](http://example.com/)
